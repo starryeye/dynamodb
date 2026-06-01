@@ -15,34 +15,43 @@ import java.net.Socket
  */
 @SpringBootTest(
     properties = [
+        // 테스트에서는 localhost의 DynamoDB Local로 요청을 보낸다.
         "app.dynamodb.endpoint=http://localhost:8000",
+        // DynamoDB Local은 실제 AWS credential이 없어도 동작한다.
         "app.dynamodb.use-dummy-credentials=true",
     ],
 )
 class TableItemKeyDynamoDbLocalTest {
-    @Autowired
+    @Autowired // Spring context에서 TableItemKeyService bean을 주입받는다.
     private lateinit var service: TableItemKeyService
 
-    @BeforeEach
+    @BeforeEach // 각 테스트 전에 DynamoDB Local 실행 여부를 확인한다.
     fun requireDynamoDbLocal() {
         // DynamoDB Local이 떠 있을 때만 실제 연동 흐름을 실행한다.
         assumeTrue(canConnectToDynamoDbLocal())
     }
 
-    @Test
+    @Test // 이 함수가 하나의 테스트 케이스다.
     fun `full primary key로 저장한 item을 다시 조회한다`() {
+        // table을 만들고 demo task item 한 건을 저장한다.
         service.saveDemoTask()
 
+        // ownerId와 itemKey를 모두 사용해서 방금 저장한 item을 조회한다.
         val item = service.getItem("owner-1", ItemKeys.task("task-1"))
 
+        // 조회 결과의 ownerId가 저장한 값과 같은지 확인한다.
         assertThat(item).containsEntry("ownerId", "owner-1")
+        // 조회 결과의 itemKey가 sort key 규칙과 같은지 확인한다.
         assertThat(item).containsEntry("itemKey", "TASK#task-1")
+        // 조회 결과가 task item임을 확인한다.
         assertThat(item).containsEntry("entityType", "TASK")
     }
 
     private fun canConnectToDynamoDbLocal(): Boolean =
+        // localhost:8000에 TCP 연결이 되면 DynamoDB Local이 떠 있다고 본다.
         runCatching {
             Socket().use { socket ->
+                // 연결 대기 시간을 짧게 두어 Docker가 꺼져 있을 때 테스트가 오래 멈추지 않게 한다.
                 socket.connect(InetSocketAddress("localhost", 8000), 200)
             }
         }.isSuccess

@@ -5,8 +5,9 @@ package com.example.dynamodb.theory.tableitemkey
  * TASK#task-1은 "TASK 타입의 task-1 item"이라는 뜻이다.
  */
 object ItemKeys {
+    // TASK# prefix를 붙이면 sort key만 봐도 task item임을 알 수 있다.
     private const val TASK_PREFIX = "TASK#"
 
-    // sort key에 type과 id를 함께 담으면 나중에 관련 item을 묶어 조회하기 쉽다.
+    // task id를 DynamoDB sort key 값으로 바꾼다.
     fun task(taskId: String): String = "$TASK_PREFIX$taskId"
 }

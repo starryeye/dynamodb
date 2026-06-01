@@ -8,10 +8,13 @@ import software.amazon.awssdk.services.dynamodb.model.AttributeValue
  */
 object DynamoDbAttributeMapper {
     fun s(value: String): AttributeValue =
+        // AttributeValue.builder().s(...)는 DynamoDB 문자열 attribute를 만든다.
         AttributeValue.builder().s(value).build()
 
     fun toStringMap(item: Map<String, AttributeValue>): Map<String, String> =
+        // 테스트 결과를 읽기 쉽도록 attribute 이름 순서로 정렬한다.
         item.entries
             .sortedBy { it.key }
+            // AttributeValue에서 문자열 값만 꺼내 일반 Kotlin Map으로 바꾼다.
             .associate { (name, value) -> name to value.s() }
 }

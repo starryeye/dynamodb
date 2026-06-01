@@ -119,6 +119,8 @@ theory/
 - 예제 이해에 필요 없는 DTO, layer, helper, abstraction은 만들지 않는다.
 - 각 theory 프로젝트의 코드에는 핵심 개념을 짧게 설명하는 주석을 둔다.
 - 주요 service/test 주석만 읽어도 주제 목표, 핵심 용어, 확인 흐름을 이해할 수 있어야 한다.
+- 초반 theory 예제는 주요 코드 라인마다 무엇을 하는지 한국어 주석으로 설명한다.
+- annotation, builder call, test assertion처럼 입문자가 낯설 수 있는 줄은 생략하지 않는다.
 - 긴 설명은 코드 주석에 넣지 않고 해당 `docs/theory/*.md` 문서로 안내하되, 코드만 열어도 최소 맥락은 잡히게 한다.
 
 실습 트랙의 세 Stage는 세 개의 독립 Gradle 프로젝트로 구성한다. 멀티 모듈 프로젝트로 만들지 않는다.
