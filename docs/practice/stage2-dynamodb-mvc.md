@@ -2,6 +2,33 @@
 
 Stage 2는 Stage 1과 같은 API, service method, DTO 이름, domain behavior를 유지하면서 persistence를 MySQL/JPA에서 DynamoDB로 바꾼다.
 
+## 먼저 읽을 이론
+
+Stage 2를 구현하기 전에 다음 이론 문서를 먼저 읽는다.
+
+- [Access Pattern](../theory/02-access-patterns.md)
+- [Query vs Scan](../theory/03-query-vs-scan.md)
+- [Key Design](../theory/04-key-design.md)
+- [GSI와 Consistency](../theory/05-gsi-and-consistency.md)
+- [Pagination](../theory/06-pagination.md)
+- [Conditional Write](../theory/07-conditional-write.md)
+- [Transactions](../theory/08-transactions.md)
+
+## Milestone
+
+Stage 2는 한 번에 구현하지 않고 다음 순서로 진행한다.
+
+| Milestone | 목표 | 주요 DynamoDB 개념 |
+| --- | --- | --- |
+| 2A | DynamoDB Local, client, table initializer 구성 | endpoint override, local credential, table 생성 |
+| 2B | task 단건 생성/조회 구현 | `PutItem`, `GetItem`, primary key |
+| 2C | owner 기준 task 목록 기본 조회 구현 | `Query`, partition key |
+| 2D | 생성일 역순 목록을 위한 GSI 적용 | GSI, `createdAtTaskId`, eventual consistency |
+| 2E | cursor pagination 구현 | `LastEvaluatedKey`, `ExclusiveStartKey`, Base64 cursor |
+| 2F | 수정/완료/삭제의 version 검증 구현 | condition expression, optimistic locking |
+| 2G | `OwnerTaskStats`와 transaction 구현 | `TransactWriteItems`, all-or-nothing write |
+| 2H | 예외 매핑과 repository integration test 보강 | `ConditionalCheckFailedException`, `TransactionCanceledException` |
+
 ## 핵심 원칙
 
 - Spring Data JPA를 사용하지 않는다.
@@ -67,6 +94,18 @@ Primary key:
 
 single-table style을 사용하여 `Task`와 `OwnerTaskStats`를 같은 테이블에 저장한다. 이렇게 하면 transaction 예제를 명확하게 보여줄 수 있다.
 
+## Access Pattern Mapping
+
+| 기능 | DynamoDB operation | Table 또는 Index | Key |
+| --- | --- | --- | --- |
+| task 생성 | `TransactWriteItems` | `tasks` | `ownerId`, `TASK#{taskId}` |
+| task 단건 조회 | `GetItem` | `tasks` | `ownerId`, `TASK#{taskId}` |
+| owner의 task 목록 조회 | `Query` | `OwnerCreatedAtIndex` | `ownerId`, `createdAtTaskId` |
+| task 제목 수정 | `UpdateItem` 또는 `TransactWriteItems` | `tasks` | `ownerId`, `TASK#{taskId}` |
+| task 완료 처리 | `TransactWriteItems` | `tasks` | `TASK` item과 `STATS` item |
+| task 삭제 | `TransactWriteItems` | `tasks` | `TASK` item과 `STATS` item |
+| owner 통계 조회 | `GetItem` | `tasks` | `ownerId`, `STATS` |
+
 ## Item Key Design
 
 ### Task item
@@ -111,6 +150,8 @@ Key:
 - `Task` item만 `createdAtTaskId`를 가진다.
 - `createdAtTaskId`는 deterministic descending pagination이 가능해야 한다.
 - 필요하면 inverted timestamp 또는 `scanIndexForward=false`를 사용한다.
+- GSI query는 eventual consistency라는 점을 Stage README와 코드 주석에서 설명한다.
+- 생성 직후 `getTask`와 `listTasks` 결과가 짧은 시간 동안 다를 수 있음을 학습 포인트로 남긴다.
 
 ## 페이지네이션
 
@@ -123,6 +164,7 @@ Key:
 - `LastEvaluatedKey`를 Base64 JSON으로 인코딩한다.
 - cursor를 decode하여 `ExclusiveStartKey`로 전달한다.
 - DynamoDB pagination은 offset 기반이 아니라 key 기반임을 주석으로 설명한다.
+- cursor decode 실패 또는 cursor의 `ownerId`가 path variable과 다른 경우 `InvalidCursorException`으로 처리한다.
 
 ## Configuration
 
@@ -184,6 +226,15 @@ transaction API와 explicit condition write에서는 condition expression을 명
 - `ConditionalCheckFailedException`은 작업 성격에 따라 `TaskVersionConflictException` 또는 `DuplicateTaskException`으로 매핑한다.
 - `TransactionCanceledException`은 가능한 경우 정확한 domain exception으로 매핑하고, 불가능하면 `TaskTransactionFailedException`으로 매핑한다.
 
+예외 매핑 기준:
+
+| 실패 상황 | DynamoDB 예외 | Domain exception |
+| --- | --- | --- |
+| 이미 존재하는 task 생성 | `ConditionalCheckFailedException` 또는 transaction cancellation reason | `DuplicateTaskException` |
+| 오래된 `expectedVersion`으로 수정/삭제 | `ConditionalCheckFailedException` 또는 transaction cancellation reason | `TaskVersionConflictException` |
+| 이미 `DONE`인 task 완료 | transaction cancellation reason | `TaskAlreadyCompletedException` |
+| cancellation reason으로 정확히 구분 불가 | `TransactionCanceledException` | `TaskTransactionFailedException` |
+
 ## 교육용 주석 포인트
 
 코드에는 다음 내용을 짧고 명확하게 설명하는 주석을 추가한다.
@@ -215,6 +266,8 @@ Stage 2 README에는 다음 내용을 포함한다.
 - throttling, latency, consumed capacity, error rate를 모니터링한다.
 - PITR, backup, deletion protection, alarm을 적절히 사용한다.
 - table과 index ARN에 대해 least-privilege IAM permission을 정의한다.
+- capacity mode는 local에서는 단순하게 두되 production README에서는 on-demand/provisioned 선택 기준을 설명한다.
+- GSI write amplification과 transaction cost를 설명한다.
 
 ## Stage 1과의 비교 포인트
 

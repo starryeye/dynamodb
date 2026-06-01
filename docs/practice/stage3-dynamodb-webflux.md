@@ -2,6 +2,14 @@
 
 Stage 3는 Stage 2의 DynamoDB table design과 business behavior를 유지하면서 실행 모델을 reactive/non-blocking으로 바꾼다.
 
+## 먼저 읽을 문서
+
+Stage 3는 DynamoDB 설계를 새로 배우는 단계가 아니다. Stage 2의 key design, GSI, pagination, condition, transaction을 이해한 뒤 실행 모델만 바꾼다.
+
+- [Stage 2 - DynamoDB + Spring MVC](./stage2-dynamodb-mvc.md)
+- [Transactions](../theory/08-transactions.md)
+- [Capacity와 Production](../theory/09-capacity-and-production.md)
+
 ## 핵심 원칙
 
 - Spring WebFlux를 사용한다.

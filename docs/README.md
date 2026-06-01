@@ -1,22 +1,56 @@
-# TaskApp 학습 프로젝트 문서
+# TaskApp DynamoDB 학습 문서
 
-이 문서는 `Task` 애플리케이션을 세 단계로 발전시키며 MySQL/JPA, DynamoDB, WebFlux의 차이를 학습하기 위한 프로젝트 명세를 정리한다.
+이 문서는 `Task` 애플리케이션을 사용해 DynamoDB를 입문자 관점에서 단계적으로 학습하기 위한 커리큘럼이다.
 
-목표는 같은 도메인, 같은 REST API, 같은 계층 구조, 최대한 비슷한 메서드 이름을 유지한 채 애플리케이션이 어떻게 달라지는지 비교하기 쉽게 만드는 것이다.
+문서는 이론 트랙과 실습 트랙으로 나뉜다. 이론 트랙에서는 Spring 없이 DynamoDB의 사고방식을 먼저 익히고, 실습 트랙에서는 같은 도메인과 REST API를 유지한 채 MySQL/JPA 애플리케이션을 DynamoDB, WebFlux로 단계적으로 바꾼다.
 
-## 문서 목록
+## 추천 학습 순서
 
-- [공통 요구사항](./requirements.md)
-- [Stage 1 - MySQL + Spring MVC + JPA](./stage1-mysql-mvc.md)
-- [Stage 2 - DynamoDB + Spring MVC](./stage2-dynamodb-mvc.md)
-- [Stage 3 - DynamoDB + Spring WebFlux](./stage3-dynamodb-webflux.md)
-- [테스트 및 산출물 요구사항](./testing-and-deliverables.md)
+처음 DynamoDB를 학습한다면 다음 순서로 읽는다.
 
-## 학습 흐름
+1. [DynamoDB 입문 개요](./theory/00-overview.md)
+2. [Table, Item, Key](./theory/01-table-item-key.md)
+3. [Access Pattern](./theory/02-access-patterns.md)
+4. [Query vs Scan](./theory/03-query-vs-scan.md)
+5. [Key Design](./theory/04-key-design.md)
+6. [Stage 1 - MySQL + Spring MVC + JPA](./practice/stage1-mysql-mvc.md)
+7. [GSI와 Consistency](./theory/05-gsi-and-consistency.md)
+8. [Pagination](./theory/06-pagination.md)
+9. [Conditional Write](./theory/07-conditional-write.md)
+10. [Transactions](./theory/08-transactions.md)
+11. [Stage 2 - DynamoDB + Spring MVC](./practice/stage2-dynamodb-mvc.md)
+12. [Capacity와 Production](./theory/09-capacity-and-production.md)
+13. [Stage 3 - DynamoDB + Spring WebFlux](./practice/stage3-dynamodb-webflux.md)
+14. [최종 비교](./final-comparison.md)
 
-1. Stage 1에서 관계형 데이터베이스와 JPA 기반의 전통적인 Spring MVC 애플리케이션을 만든다.
-2. Stage 2에서 동일한 비즈니스 기능을 DynamoDB 단일 테이블 모델과 AWS SDK v2로 옮긴다.
-3. Stage 3에서 DynamoDB 모델은 유지하되 실행 모델을 WebFlux와 비동기 DynamoDB 클라이언트로 바꾼다.
+## 이론 트랙
+
+Spring Boot 구현 전에 DynamoDB 자체를 학습한다.
+
+| 문서 | 학습 주제 |
+| --- | --- |
+| [00-overview](./theory/00-overview.md) | DynamoDB 학습 목표와 RDB와의 사고방식 차이 |
+| [01-table-item-key](./theory/01-table-item-key.md) | table, item, attribute, partition key, sort key |
+| [02-access-patterns](./theory/02-access-patterns.md) | API/use case에서 DynamoDB 설계를 시작하는 법 |
+| [03-query-vs-scan](./theory/03-query-vs-scan.md) | `Query`와 `Scan`의 차이, application path에서 `Scan`을 피하는 이유 |
+| [04-key-design](./theory/04-key-design.md) | composite key, prefix, single-table design, hot partition |
+| [05-gsi-and-consistency](./theory/05-gsi-and-consistency.md) | GSI, projection, eventual consistency, write cost |
+| [06-pagination](./theory/06-pagination.md) | `LastEvaluatedKey`, `ExclusiveStartKey`, API cursor |
+| [07-conditional-write](./theory/07-conditional-write.md) | condition expression, duplicate 방지, version conflict |
+| [08-transactions](./theory/08-transactions.md) | `TransactWriteItems`, stats 동시 갱신, 예외 매핑 |
+| [09-capacity-and-production](./theory/09-capacity-and-production.md) | capacity mode, RCU/WCU, IAM, backup, monitoring |
+
+## 실습 트랙
+
+이론에서 배운 내용을 같은 `Task` 애플리케이션에 적용한다.
+
+| 문서 | 실습 목표 |
+| --- | --- |
+| [공통 요구사항](./requirements.md) | 세 Stage가 공유하는 도메인, API, 비즈니스 규칙 |
+| [Stage 1 - MySQL + Spring MVC + JPA](./practice/stage1-mysql-mvc.md) | RDB/JPA 기준선 구현 |
+| [Stage 2 - DynamoDB + Spring MVC](./practice/stage2-dynamodb-mvc.md) | DynamoDB table, GSI, condition, transaction으로 persistence 변경 |
+| [Stage 3 - DynamoDB + Spring WebFlux](./practice/stage3-dynamodb-webflux.md) | DynamoDB 모델은 유지하고 실행 모델을 reactive로 변경 |
+| [테스트 및 산출물 요구사항](./practice/testing-and-deliverables.md) | 테스트와 최종 산출물 기준 |
 
 ## 프로젝트 구조
 
