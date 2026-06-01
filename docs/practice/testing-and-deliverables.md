@@ -73,7 +73,7 @@
 문서와 실제 프로젝트 경로는 같은 패턴을 따른다.
 
 ```text
-docs/theory/06-pagination.md          <-> theory/06-pagination/
+docs/theory/10-api-cursor.md          <-> theory/10-api-cursor/
 docs/practice/stage2-dynamodb-mvc.md  <-> practice/stage2-dynamodb-mvc/
 ```
 
@@ -83,23 +83,38 @@ docs/practice/stage2-dynamodb-mvc.md  <-> practice/stage2-dynamodb-mvc/
 theory/
   00-overview/
   01-table-item-key/
-  02-access-patterns/
-  03-query-vs-scan/
-  04-key-design/
-  05-gsi-and-consistency/
-  06-pagination/
-  07-conditional-write/
-  08-transactions/
-  09-capacity-and-production/
+  02-item-collection-query/
+  03-access-patterns/
+  04-query-vs-scan/
+  05-sort-key-prefixes/
+  06-single-table-key-design/
+  07-gsi-basics/
+  08-gsi-consistency/
+  09-last-evaluated-key/
+  10-api-cursor/
+  11-conditional-put/
+  12-versioned-update/
+  13-transaction-basics/
+  14-transaction-failures/
+  15-capacity-and-cost/
+  16-credentials-and-iam/
+  17-backup-monitoring/
 ```
 
 각 theory 프로젝트는 독립적으로 열고 실행하거나 읽을 수 있어야 한다.
 
 - 각 theory 프로젝트는 자체 `README.md`를 가진다.
-- 코드가 필요한 주제는 자체 `settings.gradle.kts`, `build.gradle.kts`, source code, tests를 가진다.
+- 각 theory 프로젝트는 자체 `settings.gradle.kts`, `build.gradle.kts`, Spring Boot source code, tests를 가진다.
 - DynamoDB Local이 필요한 주제는 자체 `docker-compose.yml` 또는 실행 안내를 가진다.
 - 한 theory 프로젝트의 실행이 다른 theory 프로젝트의 Gradle 설정에 의존하지 않는다.
 - topic 간 공통 module 또는 shared library를 만들지 않는다.
+- 기본 web stack은 Spring MVC 기반 Servlet stack이다.
+- local profile은 DynamoDB Local endpoint override와 dummy credential을 사용할 수 있다.
+- prod profile은 endpoint override와 dummy credential을 사용하지 않는다.
+- 각 theory 프로젝트는 해당 주제와 연결되는 운영 포인트를 README에 포함한다.
+- 각 theory 프로젝트는 DynamoDB 핵심 개념 1개, Spring 연동 포인트 1개, 운영 주의점 1개 정도로 작게 유지한다.
+- 각 theory 프로젝트의 코드에는 핵심 개념을 짧게 설명하는 주석을 둔다.
+- 긴 설명은 코드 주석에 넣지 않고 해당 `docs/theory/*.md` 문서로 안내한다.
 
 실습 트랙의 세 Stage는 세 개의 독립 Gradle 프로젝트로 구성한다. 멀티 모듈 프로젝트로 만들지 않는다.
 

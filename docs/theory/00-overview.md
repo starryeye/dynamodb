@@ -1,6 +1,6 @@
 # DynamoDB 입문 개요
 
-이 이론 트랙은 Spring Boot 코드를 작성하기 전에 DynamoDB의 사고방식을 먼저 익히기 위한 문서다.
+이 이론 트랙은 작은 Spring Boot 프로젝트를 통해 DynamoDB의 사고방식과 애플리케이션 연동 방법을 함께 익히기 위한 문서다.
 
 실습 위치:
 
@@ -32,18 +32,27 @@ API/use case -> access pattern -> key design -> item shape
 
 ## 이 프로젝트의 학습 흐름
 
-이론 트랙에서는 Spring을 잠시 잊고 DynamoDB 자체를 배운다.
+이론 트랙에서는 Spring Boot MVC 기반의 작은 프로젝트로 DynamoDB 개념을 하나씩 배운다.
 
 ```text
-Table / Item / Key
--> Access Pattern
+Spring Boot + DynamoDB Local 연결
+-> Table / Item / Key
+-> Item Collection Query
+-> Access Pattern과 Controller 매핑
 -> Query vs Scan
--> Key Design
--> GSI와 Consistency
--> Pagination
--> Conditional Write
--> Transaction
--> Capacity와 Production
+-> Sort Key Prefixes
+-> Single-table Key Design
+-> GSI Basics
+-> GSI Consistency
+-> LastEvaluatedKey
+-> API Cursor
+-> Conditional Put
+-> Versioned Update
+-> Transaction Basics
+-> Transaction Failures
+-> Capacity and Cost
+-> Credentials and IAM
+-> Backup and Monitoring
 ```
 
 실습 트랙에서는 기존 Spring Boot 애플리케이션을 단계적으로 바꾼다.
@@ -58,6 +67,14 @@ Stage 3: DynamoDB + Spring WebFlux
 
 DynamoDB는 SQL을 다른 문법으로 쓰는 데이터베이스가 아니다. DynamoDB는 미리 정의한 key access pattern을 매우 빠르고 안정적으로 처리하기 위해 사용하는 key-value/document database다.
 
+## 기본 Spring Stack
+
+이론 트랙의 기본 web stack은 Spring MVC 기반 Servlet stack이다.
+
+Spring MVC는 Spring Framework의 original web framework이며 Servlet API와 Servlet container를 기반으로 한다. WebFlux는 Spring Framework 5.0에서 추가된 reactive stack이므로, 이 커리큘럼에서는 먼저 Spring MVC와 blocking `DynamoDbClient`를 배운 뒤 Stage 3에서 reactive stack으로 넘어간다.
+
+운영 환경 관점도 각 주제에 포함한다. local에서는 DynamoDB Local, endpoint override, dummy credential을 사용하지만 production에서는 IAM role 또는 default credential provider를 사용하고 table 생성은 IaC로 관리하는 방향을 기본으로 둔다.
+
 ## 완료 기준
 
 이 주제를 마치면 다음을 자기 말로 설명할 수 있어야 한다.
@@ -66,3 +83,5 @@ DynamoDB는 SQL을 다른 문법으로 쓰는 데이터베이스가 아니다. D
 - DynamoDB에서 table 설계는 API/use case와 분리해서 생각하기 어렵다.
 - `Query`로 풀 수 없는 요구사항은 key design 또는 GSI 설계를 다시 봐야 한다.
 - Stage 1, 2, 3은 각각 데이터 모델, 저장소 모델, 실행 모델의 차이를 비교하기 위한 실습이다.
+- theory 프로젝트는 DynamoDB 개념뿐 아니라 Spring Boot configuration, profile, local/prod 차이까지 함께 배운다.
+- `theory/00-overview`도 Spring Boot MVC 애플리케이션으로 실행되며, 이후 모든 theory 프로젝트가 같은 기본 실행 모델을 따른다.

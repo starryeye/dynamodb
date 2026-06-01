@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: theory-01-table-item-key
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
+app:
+  dynamodb:
+    region: ${AWS_REGION:ap-northeast-2}
+    table-name: ${DYNAMODB_TABLE_NAME:theory_01_table_item_key}
+    endpoint: ${DYNAMODB_ENDPOINT:}
+    use-dummy-credentials: ${DYNAMODB_USE_DUMMY_CREDENTIALS:false}

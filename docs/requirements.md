@@ -24,7 +24,32 @@
 
 실습 프로젝트는 Gradle multi-module이 아니라 `practice/` 아래의 세 개 독립 Gradle 프로젝트로 작성한다. 공통 코드를 별도 shared module로 빼지 않고, 비교 학습을 위해 각 Stage 안에 필요한 코드를 명시적으로 둔다.
 
-이론 프로젝트는 `theory/` 아래에 주제별 독립 프로젝트로 작성한다. 각 이론 프로젝트는 `docs/theory/*.md`와 1:1로 대응하며, 해당 개념을 확인하는 최소 코드, 테스트, 스크립트, README를 가진다.
+이론 프로젝트는 `theory/` 아래에 주제별 독립 프로젝트로 작성한다. 각 이론 프로젝트는 `docs/theory/*.md`와 1:1로 대응하며, 해당 개념을 확인하는 최소 Spring Boot 코드, 테스트, 스크립트, README를 가진다.
+
+이론 프로젝트의 기본 web stack은 Spring MVC 기반 Servlet stack이다. DynamoDB는 먼저 blocking `DynamoDbClient`로 학습한다. reactive stack과 `DynamoDbAsyncClient`는 Stage 3에서 비교 학습한다.
+
+각 이론 프로젝트는 운영 환경에서 필요한 최소 관점도 함께 다룬다.
+
+- local profile과 prod profile의 차이
+- local `endpointOverride`와 dummy credential 사용 범위
+- prod에서 IAM role 또는 default credential provider 사용
+- table 생성 책임을 application startup에 둘지 IaC에 둘지에 대한 판단
+- capacity, latency, throttling, error monitoring 중 해당 주제와 연결되는 항목
+
+각 theory topic은 작게 유지한다.
+
+- DynamoDB 핵심 개념은 한 번에 하나만 다룬다.
+- Spring 연동 포인트도 한 번에 하나만 강조한다.
+- 운영 포인트는 해당 주제와 직접 연결되는 한두 가지로 제한한다.
+- topic이 GSI, pagination, transaction처럼 무거워지면 basics와 failure/consistency/cursor 같은 별도 topic으로 나눈다.
+
+코드 주석은 학습을 돕되 과하지 않게 작성한다.
+
+- 주석은 해당 topic의 핵심 개념이 드러나는 코드에만 둔다.
+- 한 주석은 한두 문장으로 짧게 쓴다.
+- 구현을 그대로 읽어주는 주석은 쓰지 않는다.
+- 자세한 이론 설명은 `docs/theory/*.md`를 읽도록 안내한다.
+- production과 local의 차이가 중요한 설정에는 짧은 주석을 남긴다.
 
 ## 패키지
 

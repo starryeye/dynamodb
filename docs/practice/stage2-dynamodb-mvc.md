@@ -6,13 +6,18 @@ Stage 2는 Stage 1과 같은 API, service method, DTO 이름, domain behavior를
 
 Stage 2를 구현하기 전에 다음 이론 문서를 먼저 읽는다.
 
-- [Access Pattern](../theory/02-access-patterns.md)
-- [Query vs Scan](../theory/03-query-vs-scan.md)
-- [Key Design](../theory/04-key-design.md)
-- [GSI와 Consistency](../theory/05-gsi-and-consistency.md)
-- [Pagination](../theory/06-pagination.md)
-- [Conditional Write](../theory/07-conditional-write.md)
-- [Transactions](../theory/08-transactions.md)
+- [Access Pattern](../theory/03-access-patterns.md)
+- [Query vs Scan](../theory/04-query-vs-scan.md)
+- [Sort Key Prefixes](../theory/05-sort-key-prefixes.md)
+- [Single-table Key Design](../theory/06-single-table-key-design.md)
+- [GSI Basics](../theory/07-gsi-basics.md)
+- [GSI Consistency](../theory/08-gsi-consistency.md)
+- [LastEvaluatedKey](../theory/09-last-evaluated-key.md)
+- [API Cursor](../theory/10-api-cursor.md)
+- [Conditional Put](../theory/11-conditional-put.md)
+- [Versioned Update](../theory/12-versioned-update.md)
+- [Transaction Basics](../theory/13-transaction-basics.md)
+- [Transaction Failures](../theory/14-transaction-failures.md)
 
 ## Milestone
 

@@ -7,8 +7,9 @@ Stage 3는 Stage 2의 DynamoDB table design과 business behavior를 유지하면
 Stage 3는 DynamoDB 설계를 새로 배우는 단계가 아니다. Stage 2의 key design, GSI, pagination, condition, transaction을 이해한 뒤 실행 모델만 바꾼다.
 
 - [Stage 2 - DynamoDB + Spring MVC](./stage2-dynamodb-mvc.md)
-- [Transactions](../theory/08-transactions.md)
-- [Capacity와 Production](../theory/09-capacity-and-production.md)
+- [Transaction Basics](../theory/13-transaction-basics.md)
+- [Transaction Failures](../theory/14-transaction-failures.md)
+- [Capacity and Cost](../theory/15-capacity-and-cost.md)
 
 ## 핵심 원칙
 

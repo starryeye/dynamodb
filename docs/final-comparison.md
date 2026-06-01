@@ -19,7 +19,7 @@ Stage 1에서 RDB/JPA 기준선을 만들고, Stage 2에서 persistence model을
 | 문서 | 프로젝트 |
 | --- | --- |
 | `docs/theory/01-table-item-key.md` | `theory/01-table-item-key/` |
-| `docs/theory/08-transactions.md` | `theory/08-transactions/` |
+| `docs/theory/13-transaction-basics.md` | `theory/13-transaction-basics/` |
 | `docs/practice/stage1-mysql-mvc.md` | `practice/stage1-mysql-mvc/` |
 | `docs/practice/stage2-dynamodb-mvc.md` | `practice/stage2-dynamodb-mvc/` |
 | `docs/practice/stage3-dynamodb-webflux.md` | `practice/stage3-dynamodb-webflux/` |

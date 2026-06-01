@@ -2,6 +2,12 @@
 
 DynamoDB의 가장 기본 단위는 table, item, attribute, key다.
 
+실습 위치:
+
+```text
+theory/01-table-item-key/
+```
+
 ## 기본 개념
 
 Table은 item의 모음이다. RDB table과 비슷해 보이지만, 모든 item이 같은 attribute를 가질 필요는 없다.
@@ -37,37 +43,24 @@ sort key      = itemKey
 }
 ```
 
-통계 item은 같은 owner partition 안에 다른 sort key로 저장한다.
-
-```json
-{
-  "ownerId": "owner-1",
-  "itemKey": "STATS",
-  "entityType": "OWNER_TASK_STATS",
-  "totalCount": 3,
-  "todoCount": 2,
-  "doneCount": 1
-}
-```
-
-## Item Collection
-
-같은 partition key를 가진 item 묶음을 item collection이라고 생각할 수 있다.
-
-```text
-ownerId = owner-1
-
-itemKey = STATS
-itemKey = TASK#task-1
-itemKey = TASK#task-2
-itemKey = TASK#task-3
-```
-
-이 구조 덕분에 owner 기준으로 관련 item을 함께 다룰 수 있다.
+이번 주제에서는 full primary key로 task item 하나를 저장하고 조회하는 데 집중한다. 같은 partition key의 item 묶음은 다음 주제에서 `Query`로 다룬다.
 
 ## 확인 질문
 
-- `ownerId`만 알 때 어떤 item들을 찾을 수 있는가?
+- `ownerId`만 알 때 단건 `GetItem`을 할 수 없는 이유는 무엇인가?
 - `ownerId`와 `TASK#taskId`를 모두 알 때 어떤 operation이 적합한가?
-- `STATS` item과 `TASK#...` item을 같은 table에 넣는 이유는 무엇인가?
+- Spring service에서 DynamoDB client를 직접 생성하지 않고 bean으로 주입받는 이유는 무엇인가?
 
+## 실습에서 확인할 것
+
+`theory/01-table-item-key` 프로젝트는 Spring Boot MVC 애플리케이션으로 다음을 직접 실행해본다.
+
+- DynamoDB Local에 `ownerId` + `itemKey` composite primary key를 가진 table을 만든다.
+- `DynamoDbClient`를 Spring bean으로 등록한다.
+- local profile에서 endpoint override와 dummy credential을 사용한다.
+- `TASK#task-1` item을 저장한다.
+- HTTP API를 통해 `GetItem`으로 full primary key 조회를 한다.
+
+`Query`와 item collection은 다음 주제인 [Item Collection Query](./02-item-collection-query.md)에서 다룬다.
+
+운영 환경에서는 local endpoint override와 dummy credential을 사용하지 않는다. Production table은 애플리케이션 요청으로 만드는 것이 아니라 IaC로 관리하는 방향을 기본으로 둔다.
