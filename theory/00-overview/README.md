@@ -4,7 +4,7 @@
 
 이 프로젝트는 DynamoDB 학습 흐름과 RDB와의 사고방식 차이를 정리하는 독립 프로젝트다.
 
-이 주제도 Spring Boot MVC 애플리케이션으로 실행한다. DynamoDB 요청은 아직 보내지 않지만, 앞으로 모든 theory 프로젝트가 사용할 기본 실행 모델과 학습 방향을 HTTP API로 확인한다.
+이 주제는 코드 실습 전 오리엔테이션이다. DynamoDB를 SQL의 다른 문법으로 보지 않고, access pattern 중심의 데이터베이스로 바라보는 준비를 한다. Spring Boot MVC 실습은 `01-table-item-key`부터 시작한다.
 
 ## 학습 목표
 
@@ -13,7 +13,7 @@
 - theory 프로젝트의 기본 스택이 Spring MVC 기반 Servlet stack인 이유를 이해한다.
 - Stage 1, 2, 3이 각각 무엇을 비교하기 위한 단계인지 말할 수 있다.
 - 앞으로 각 주제에서 어떤 질문을 던져야 하는지 정리한다.
-- `gradle bootRun`으로 최소 Spring Boot 앱을 실행하고 `/overview` 응답을 확인한다.
+- Spring Boot MVC 실습이 `01-table-item-key`부터 시작된다는 점을 이해한다.
 
 ## 파일
 
@@ -22,36 +22,12 @@
 | [learning-checklist.md](./learning-checklist.md) | 이 주제의 학습 체크리스트 |
 | [rdb-vs-dynamodb.md](./rdb-vs-dynamodb.md) | RDB와 DynamoDB 사고방식 비교 |
 | [reflection.md](./reflection.md) | 자기 말로 정리하는 회고 템플릿 |
-| `src/main/kotlin` | 최소 Spring Boot MVC 애플리케이션 |
-
-## 실행 방법
-
-테스트를 실행한다.
-
-```bash
-gradle test
-```
-
-Spring Boot 애플리케이션을 실행한다.
-
-```bash
-gradle bootRun
-```
-
-overview API를 호출한다.
-
-```bash
-curl http://localhost:8080/overview
-```
-
 ## 진행 순서
 
 1. [문서](../../docs/theory/00-overview.md)를 읽는다.
-2. `gradle test`로 Spring Boot test를 실행한다.
-3. `gradle bootRun`으로 앱을 실행하고 `/overview`를 호출한다.
-4. [RDB와 DynamoDB 비교](./rdb-vs-dynamodb.md)를 채운다.
-5. [학습 체크리스트](./learning-checklist.md)를 확인한다.
-6. [회고 템플릿](./reflection.md)에 답을 적는다.
+2. [RDB와 DynamoDB 비교](./rdb-vs-dynamodb.md)를 채운다.
+3. [학습 체크리스트](./learning-checklist.md)를 확인한다.
+4. [회고 템플릿](./reflection.md)에 답을 적는다.
 
 ## 완료 기준
 

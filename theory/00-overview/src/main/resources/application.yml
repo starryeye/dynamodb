@@ -1,9 +1,0 @@
-spring:
-  application:
-    name: theory-00-overview
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include: health,info

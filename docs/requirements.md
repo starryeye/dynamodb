@@ -24,9 +24,9 @@
 
 실습 프로젝트는 Gradle multi-module이 아니라 `practice/` 아래의 세 개 독립 Gradle 프로젝트로 작성한다. 공통 코드를 별도 shared module로 빼지 않고, 비교 학습을 위해 각 Stage 안에 필요한 코드를 명시적으로 둔다.
 
-이론 프로젝트는 `theory/` 아래에 주제별 독립 프로젝트로 작성한다. 각 이론 프로젝트는 `docs/theory/*.md`와 1:1로 대응하며, 해당 개념을 확인하는 최소 Spring Boot 코드, 테스트, 스크립트, README를 가진다.
+이론 프로젝트는 `theory/` 아래에 주제별 독립 프로젝트로 작성한다. `00-overview`는 오리엔테이션 문서와 학습 메모만 가진다. `01-table-item-key` 이후의 각 이론 프로젝트는 `docs/theory/*.md`와 1:1로 대응하며, 해당 개념을 확인하는 최소 Spring Boot 코드, 테스트, 스크립트, README를 가진다.
 
-이론 프로젝트의 기본 web stack은 Spring MVC 기반 Servlet stack이다. DynamoDB는 먼저 blocking `DynamoDbClient`로 학습한다. reactive stack과 `DynamoDbAsyncClient`는 Stage 3에서 비교 학습한다.
+코드가 있는 이론 프로젝트의 기본 web stack은 Spring MVC 기반 Servlet stack이다. DynamoDB는 먼저 blocking `DynamoDbClient`로 학습한다. reactive stack과 `DynamoDbAsyncClient`는 Stage 3에서 비교 학습한다.
 
 각 이론 프로젝트는 운영 환경에서 필요한 최소 관점도 함께 다룬다.
 

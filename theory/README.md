@@ -1,6 +1,6 @@
 # Theory Projects
 
-이 디렉터리는 DynamoDB 이론 주제별 독립 Spring Boot 프로젝트를 담는다.
+이 디렉터리는 DynamoDB 이론 주제별 독립 학습 프로젝트를 담는다.
 
 각 프로젝트는 `docs/theory/*.md` 문서와 1:1로 대응한다.
 
@@ -9,7 +9,7 @@ docs/theory/01-table-item-key.md <-> theory/01-table-item-key/
 docs/theory/10-api-cursor.md     <-> theory/10-api-cursor/
 ```
 
-각 프로젝트는 형제 프로젝트에 의존하지 않는다. 기본 스택은 Spring MVC 기반 Servlet stack과 blocking `DynamoDbClient`다.
+각 프로젝트는 형제 프로젝트에 의존하지 않는다. `00-overview`는 오리엔테이션 문서이고, `01-table-item-key` 이후의 기본 스택은 Spring MVC 기반 Servlet stack과 blocking `DynamoDbClient`다.
 
 각 주제는 다음을 함께 배운다.
 
@@ -19,7 +19,7 @@ docs/theory/10-api-cursor.md     <-> theory/10-api-cursor/
 - prod profile에서 endpoint override와 dummy credential을 제거하는 이유
 - 해당 주제와 연결되는 운영 포인트
 
-모든 theory 프로젝트는 Spring Boot MVC 기반으로 작성한다. topic마다 다루는 DynamoDB 기능은 다르지만, 애플리케이션 골격은 일관되게 유지한다.
+`01-table-item-key` 이후의 모든 theory 프로젝트는 Spring Boot MVC 기반으로 작성한다. topic마다 다루는 DynamoDB 기능은 다르지만, 애플리케이션 골격은 일관되게 유지한다.
 
 ## Topic Size Rule
 

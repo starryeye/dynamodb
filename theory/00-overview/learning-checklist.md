@@ -5,13 +5,7 @@
 - [ ] `docs/theory/00-overview.md`를 읽었다.
 - [ ] 이론 트랙과 실습 트랙의 차이를 이해했다.
 - [ ] Stage 1, 2, 3의 역할을 설명할 수 있다.
-- [ ] 모든 theory 프로젝트가 Spring Boot MVC 기반으로 진행된다는 점을 이해했다.
-
-## 실행
-
-- [ ] `gradle test`를 실행했다.
-- [ ] `gradle bootRun`으로 Spring Boot 애플리케이션을 실행했다.
-- [ ] `GET /overview` 응답을 확인했다.
+- [ ] Spring Boot MVC 실습은 `01-table-item-key`부터 시작된다는 점을 이해했다.
 
 ## 이해
 

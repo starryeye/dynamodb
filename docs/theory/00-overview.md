@@ -84,4 +84,4 @@ Spring MVC는 Spring Framework의 original web framework이며 Servlet API와 Se
 - `Query`로 풀 수 없는 요구사항은 key design 또는 GSI 설계를 다시 봐야 한다.
 - Stage 1, 2, 3은 각각 데이터 모델, 저장소 모델, 실행 모델의 차이를 비교하기 위한 실습이다.
 - theory 프로젝트는 DynamoDB 개념뿐 아니라 Spring Boot configuration, profile, local/prod 차이까지 함께 배운다.
-- `theory/00-overview`도 Spring Boot MVC 애플리케이션으로 실행되며, 이후 모든 theory 프로젝트가 같은 기본 실행 모델을 따른다.
+- `theory/00-overview`는 코드 실습 전 오리엔테이션이다. Spring Boot MVC 실습은 `01-table-item-key`부터 시작한다.

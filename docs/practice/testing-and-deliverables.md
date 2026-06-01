@@ -104,7 +104,8 @@ theory/
 각 theory 프로젝트는 독립적으로 열고 실행하거나 읽을 수 있어야 한다.
 
 - 각 theory 프로젝트는 자체 `README.md`를 가진다.
-- 각 theory 프로젝트는 자체 `settings.gradle.kts`, `build.gradle.kts`, Spring Boot source code, tests를 가진다.
+- `00-overview`는 오리엔테이션 문서와 학습 메모만 가진다.
+- `01-table-item-key` 이후의 theory 프로젝트는 자체 `settings.gradle.kts`, `build.gradle.kts`, Spring Boot source code, tests를 가진다.
 - DynamoDB Local이 필요한 주제는 자체 `docker-compose.yml` 또는 실행 안내를 가진다.
 - 한 theory 프로젝트의 실행이 다른 theory 프로젝트의 Gradle 설정에 의존하지 않는다.
 - topic 간 공통 module 또는 shared library를 만들지 않는다.
