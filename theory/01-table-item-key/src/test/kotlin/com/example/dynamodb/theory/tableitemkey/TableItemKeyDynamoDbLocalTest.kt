@@ -9,6 +9,10 @@ import org.springframework.boot.test.context.SpringBootTest
 import java.net.InetSocketAddress
 import java.net.Socket
 
+/**
+ * 이 테스트가 이번 주제의 실행 흐름이다.
+ * DynamoDB Local에 table을 만들고, item을 저장한 뒤, full primary key로 다시 조회한다.
+ */
 @SpringBootTest(
     properties = [
         "app.dynamodb.endpoint=http://localhost:8000",
@@ -26,7 +30,7 @@ class TableItemKeyDynamoDbLocalTest {
     }
 
     @Test
-    fun `stores and reads item with full primary key`() {
+    fun `full primary key로 저장한 item을 다시 조회한다`() {
         service.saveDemoTask()
 
         val item = service.getItem("owner-1", ItemKeys.task("task-1"))

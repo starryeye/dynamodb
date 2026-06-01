@@ -118,7 +118,8 @@ theory/
 - theory 예제 코드는 처음 읽는 사람이 `configuration -> service -> test` 흐름을 바로 따라갈 수 있을 만큼 단순하게 유지한다.
 - 예제 이해에 필요 없는 DTO, layer, helper, abstraction은 만들지 않는다.
 - 각 theory 프로젝트의 코드에는 핵심 개념을 짧게 설명하는 주석을 둔다.
-- 긴 설명은 코드 주석에 넣지 않고 해당 `docs/theory/*.md` 문서로 안내한다.
+- 주요 service/test 주석만 읽어도 주제 목표, 핵심 용어, 확인 흐름을 이해할 수 있어야 한다.
+- 긴 설명은 코드 주석에 넣지 않고 해당 `docs/theory/*.md` 문서로 안내하되, 코드만 열어도 최소 맥락은 잡히게 한다.
 
 실습 트랙의 세 Stage는 세 개의 독립 Gradle 프로젝트로 구성한다. 멀티 모듈 프로젝트로 만들지 않는다.
 

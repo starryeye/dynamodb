@@ -18,6 +18,10 @@ data class DynamoDbProperties(
     val useDummyCredentials: Boolean = false,
 )
 
+/**
+ * Spring Boot에서 DynamoDbClient를 bean으로 등록하는 설정이다.
+ * service는 이 bean을 주입받아 DynamoDB에 item을 저장하고 조회한다.
+ */
 @Configuration
 class DynamoDbConfig {
     @Bean

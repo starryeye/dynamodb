@@ -11,6 +11,6 @@ import org.springframework.boot.test.context.SpringBootTest
 )
 class TableItemKeyApplicationTest {
     @Test
-    fun `context loads`() {
+    fun `Spring context가 DynamoDbClient 설정을 포함해 로딩된다`() {
     }
 }
