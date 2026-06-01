@@ -2,6 +2,12 @@
 
 이 이론 트랙은 Spring Boot 코드를 작성하기 전에 DynamoDB의 사고방식을 먼저 익히기 위한 문서다.
 
+실습 위치:
+
+```text
+theory/00-overview/
+```
+
 목표는 DynamoDB 문법을 많이 외우는 것이 아니라, 다음 질문에 스스로 답할 수 있게 되는 것이다.
 
 - 이 API는 어떤 key로 조회할 수 있는가?
@@ -52,3 +58,11 @@ Stage 3: DynamoDB + Spring WebFlux
 
 DynamoDB는 SQL을 다른 문법으로 쓰는 데이터베이스가 아니다. DynamoDB는 미리 정의한 key access pattern을 매우 빠르고 안정적으로 처리하기 위해 사용하는 key-value/document database다.
 
+## 완료 기준
+
+이 주제를 마치면 다음을 자기 말로 설명할 수 있어야 한다.
+
+- RDB는 보통 entity와 relation에서 시작하지만 DynamoDB는 access pattern에서 시작한다.
+- DynamoDB에서 table 설계는 API/use case와 분리해서 생각하기 어렵다.
+- `Query`로 풀 수 없는 요구사항은 key design 또는 GSI 설계를 다시 봐야 한다.
+- Stage 1, 2, 3은 각각 데이터 모델, 저장소 모델, 실행 모델의 차이를 비교하기 위한 실습이다.
