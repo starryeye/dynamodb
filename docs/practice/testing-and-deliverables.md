@@ -68,14 +68,48 @@
 
 ## 산출물 형식
 
-학습자가 쉽게 따라가고 비교할 수 있도록 세 Stage를 세 개의 독립 Gradle 프로젝트로 구성한다. 멀티 모듈 프로젝트로 만들지 않는다.
+학습자가 쉽게 따라가고 비교할 수 있도록 이론 프로젝트와 실습 프로젝트를 루트에서 분리한다.
+
+문서와 실제 프로젝트 경로는 같은 패턴을 따른다.
+
+```text
+docs/theory/06-pagination.md          <-> theory/06-pagination/
+docs/practice/stage2-dynamodb-mvc.md  <-> practice/stage2-dynamodb-mvc/
+```
+
+이론 트랙은 주제별 독립 프로젝트로 구성한다.
+
+```text
+theory/
+  00-overview/
+  01-table-item-key/
+  02-access-patterns/
+  03-query-vs-scan/
+  04-key-design/
+  05-gsi-and-consistency/
+  06-pagination/
+  07-conditional-write/
+  08-transactions/
+  09-capacity-and-production/
+```
+
+각 theory 프로젝트는 독립적으로 열고 실행하거나 읽을 수 있어야 한다.
+
+- 각 theory 프로젝트는 자체 `README.md`를 가진다.
+- 코드가 필요한 주제는 자체 `settings.gradle.kts`, `build.gradle.kts`, source code, tests를 가진다.
+- DynamoDB Local이 필요한 주제는 자체 `docker-compose.yml` 또는 실행 안내를 가진다.
+- 한 theory 프로젝트의 실행이 다른 theory 프로젝트의 Gradle 설정에 의존하지 않는다.
+- topic 간 공통 module 또는 shared library를 만들지 않는다.
+
+실습 트랙의 세 Stage는 세 개의 독립 Gradle 프로젝트로 구성한다. 멀티 모듈 프로젝트로 만들지 않는다.
 
 최종 구조:
 
 ```text
-stage1-mysql-mvc/
-stage2-dynamodb-mvc/
-stage3-dynamodb-webflux/
+practice/
+  stage1-mysql-mvc/
+  stage2-dynamodb-mvc/
+  stage3-dynamodb-webflux/
 ```
 
 각 Stage는 독립적으로 열고 실행할 수 있어야 한다.

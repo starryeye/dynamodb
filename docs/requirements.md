@@ -22,7 +22,9 @@
 - 중요한 persistence 차이를 과도한 추상화로 숨기지 않기
 - 교육적인 주석은 추가하되 과하게 noisy하게 만들지 않기
 
-프로젝트는 Gradle multi-module이 아니라 세 개의 독립 Gradle 프로젝트로 작성한다. 공통 코드를 별도 shared module로 빼지 않고, 비교 학습을 위해 각 Stage 안에 필요한 코드를 명시적으로 둔다.
+실습 프로젝트는 Gradle multi-module이 아니라 `practice/` 아래의 세 개 독립 Gradle 프로젝트로 작성한다. 공통 코드를 별도 shared module로 빼지 않고, 비교 학습을 위해 각 Stage 안에 필요한 코드를 명시적으로 둔다.
+
+이론 프로젝트는 `theory/` 아래에 주제별 독립 프로젝트로 작성한다. 각 이론 프로젝트는 `docs/theory/*.md`와 1:1로 대응하며, 해당 개념을 확인하는 최소 코드, 테스트, 스크립트, README를 가진다.
 
 ## 패키지
 

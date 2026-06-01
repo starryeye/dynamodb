@@ -12,6 +12,18 @@ Stage 3: DynamoDB + Spring WebFlux
 
 Stage 1에서 RDB/JPA 기준선을 만들고, Stage 2에서 persistence model을 DynamoDB로 바꾼다. Stage 3에서는 DynamoDB 설계는 유지한 채 request 처리와 AWS SDK 호출 방식을 reactive/non-blocking으로 바꾼다.
 
+## 프로젝트 경로
+
+문서와 실제 프로젝트는 같은 경로 패턴을 따른다.
+
+| 문서 | 프로젝트 |
+| --- | --- |
+| `docs/theory/01-table-item-key.md` | `theory/01-table-item-key/` |
+| `docs/theory/08-transactions.md` | `theory/08-transactions/` |
+| `docs/practice/stage1-mysql-mvc.md` | `practice/stage1-mysql-mvc/` |
+| `docs/practice/stage2-dynamodb-mvc.md` | `practice/stage2-dynamodb-mvc/` |
+| `docs/practice/stage3-dynamodb-webflux.md` | `practice/stage3-dynamodb-webflux/` |
+
 ## 설계 비교
 
 | 주제 | Stage 1 | Stage 2 | Stage 3 |
@@ -63,4 +75,3 @@ Stage 3에서 배울 것:
 - `getTask`와 `listTasks`의 consistency가 달라질 수 있는 이유는 무엇인가?
 - 모든 write에 transaction을 쓰지 않고 필요한 곳에만 쓰는 이유는 무엇인가?
 - Stage 3에서 DynamoDB table design이 바뀌지 않는 이유는 무엇인가?
-
