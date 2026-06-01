@@ -11,8 +11,7 @@ version = "0.0.1-SNAPSHOT"
 dependencies {
     implementation(kotlin("reflect"))
     implementation(platform("software.amazon.awssdk:bom:2.31.78"))
-    implementation("org.springframework.boot:spring-boot-starter-actuator")
-    implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springframework.boot:spring-boot-starter")
     implementation("software.amazon.awssdk:dynamodb")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")

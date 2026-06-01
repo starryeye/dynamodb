@@ -12,16 +12,16 @@
 
 - [ ] `docker compose up -d`로 DynamoDB Local을 실행했다.
 - [ ] `gradle test`로 key naming 테스트를 실행했다.
-- [ ] `gradle bootRun --args='--spring.profiles.active=local'`로 Spring Boot 애플리케이션을 실행했다.
-- [ ] `POST /demo/setup`으로 table 생성과 seed item 저장을 실행했다.
-- [ ] `GET /demo/items?ownerId=owner-1&itemKey=TASK%23task-1`로 full primary key 조회를 실행했다.
+- [ ] `gradle test`에서 Spring Boot context가 로딩되는지 확인했다.
+- [ ] `gradle test`에서 DynamoDB Local을 사용하는 table 생성과 seed item 저장을 확인했다.
+- [ ] `gradle test`에서 full primary key 조회 assertion을 확인했다.
 
 ## 이해
 
 - [ ] `GetItem`에 partition key와 sort key가 모두 필요한 이유를 설명할 수 있다.
 - [ ] `TASK#` prefix가 item type을 구분하는 데 어떻게 쓰이는지 이해했다.
 - [ ] item collection query는 다음 주제에서 다룬다는 점을 확인했다.
-- [ ] production에서 request path가 table을 만들면 안 되는 이유를 이해했다.
+- [ ] production에서 application startup이 table을 만들면 안 되는 이유를 이해했다.
 - [ ] production에서 dummy credential과 endpoint override를 제거해야 하는 이유를 이해했다.
 
 ## 다음 주제로 넘어가기 전 질문

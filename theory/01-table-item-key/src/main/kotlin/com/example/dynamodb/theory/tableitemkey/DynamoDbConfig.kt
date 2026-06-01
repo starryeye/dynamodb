@@ -22,18 +22,18 @@ data class DynamoDbProperties(
 class DynamoDbConfig {
     @Bean
     fun dynamoDbClient(properties: DynamoDbProperties): DynamoDbClient {
-        // Spring owns the client so services can focus on DynamoDB operations.
-        // See docs/theory/01-table-item-key.md for the setup flow.
+        // Spring이 client를 관리하면 service는 DynamoDB operation에 집중할 수 있다.
+        // 설정 흐름은 docs/theory/01-table-item-key.md에서 더 자세히 다룬다.
         val builder = DynamoDbClient.builder()
             .region(Region.of(properties.region))
 
         if (properties.endpoint.isNotBlank()) {
-            // endpointOverride is for DynamoDB Local only, never production.
+            // endpointOverride는 DynamoDB Local 전용이며 production에서는 쓰지 않는다.
             builder.endpointOverride(URI.create(properties.endpoint))
         }
 
         if (properties.useDummyCredentials) {
-            // DynamoDB Local accepts dummy credentials; AWS should use IAM/default credentials.
+            // DynamoDB Local은 dummy credential을 허용하지만 AWS에서는 IAM/default credential을 쓴다.
             builder.credentialsProvider(
                 StaticCredentialsProvider.create(
                     AwsBasicCredentials.create("dummy", "dummy"),

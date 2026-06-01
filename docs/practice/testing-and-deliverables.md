@@ -101,7 +101,7 @@ theory/
   17-backup-monitoring/
 ```
 
-각 theory 프로젝트는 독립적으로 열고 실행하거나 읽을 수 있어야 한다.
+각 theory 프로젝트는 독립적으로 열고 테스트하거나 읽을 수 있어야 한다.
 
 - 각 theory 프로젝트는 자체 `README.md`를 가진다.
 - `00-overview`는 오리엔테이션 문서와 학습 메모만 가진다.
@@ -109,11 +109,14 @@ theory/
 - DynamoDB Local이 필요한 주제는 자체 `docker-compose.yml` 또는 실행 안내를 가진다.
 - 한 theory 프로젝트의 실행이 다른 theory 프로젝트의 Gradle 설정에 의존하지 않는다.
 - topic 간 공통 module 또는 shared library를 만들지 않는다.
-- 기본 web stack은 Spring MVC 기반 Servlet stack이다.
+- 기본 실행 모델은 non-web Spring Boot 애플리케이션을 `gradle test`로 확인하는 방식이다.
+- controller는 theory가 아니라 practice Stage에서 본격적으로 다룬다.
 - local profile은 DynamoDB Local endpoint override와 dummy credential을 사용할 수 있다.
 - prod profile은 endpoint override와 dummy credential을 사용하지 않는다.
 - 각 theory 프로젝트는 해당 주제와 연결되는 운영 포인트를 README에 포함한다.
 - 각 theory 프로젝트는 DynamoDB 핵심 개념 1개, Spring 연동 포인트 1개, 운영 주의점 1개 정도로 작게 유지한다.
+- theory 예제 코드는 처음 읽는 사람이 `configuration -> service -> test` 흐름을 바로 따라갈 수 있을 만큼 단순하게 유지한다.
+- 예제 이해에 필요 없는 DTO, layer, helper, abstraction은 만들지 않는다.
 - 각 theory 프로젝트의 코드에는 핵심 개념을 짧게 설명하는 주석을 둔다.
 - 긴 설명은 코드 주석에 넣지 않고 해당 `docs/theory/*.md` 문서로 안내한다.
 

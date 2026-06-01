@@ -1,6 +1,6 @@
 # Item Collection Query
 
-이 주제는 `Query`를 처음 배우는 단계다. 목표는 partition key가 같은 item 묶음을 Spring Boot API로 조회하는 것이다.
+이 주제는 `Query`를 처음 배우는 단계다. 목표는 partition key가 같은 item 묶음을 Spring service와 test로 조회하는 것이다.
 
 실습 위치:
 
@@ -13,7 +13,7 @@ theory/02-item-collection-query/
 - item collection의 의미
 - partition key 조건으로 `Query` 호출하기
 - `GetItem`과 `Query`의 차이
-- Spring controller에서 owner별 item 목록 API 만들기
+- Spring service/test에서 owner별 item 목록 조회하기
 
 ## 이번 주제에서 아직 다루지 않는 것
 
@@ -22,18 +22,19 @@ theory/02-item-collection-query/
 - pagination
 - conditional write
 
-## Spring API
+## Spring 실행 흐름
 
 ```text
-POST /demo/setup
-GET /demo/owners/{ownerId}/items
+test
+-> seed demo items
+-> query owner item collection
 ```
 
 `ownerId=owner-1`로 `Query`하면 같은 partition key를 가진 item만 반환된다.
 
 ## 운영 포인트
 
-application request path에서 목록 조회를 만들 때는 먼저 `Query`로 표현 가능한지 확인한다. `Query`로 표현되지 않는 요구사항은 다음 주제에서 access pattern으로 다시 정리한다.
+애플리케이션에서 목록 조회를 만들 때는 먼저 `Query`로 표현 가능한지 확인한다. `Query`로 표현되지 않는 요구사항은 다음 주제에서 access pattern으로 다시 정리한다.
 
 ## 확인 질문
 

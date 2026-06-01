@@ -13,7 +13,7 @@ theory/08-gsi-consistency/
 - table `GetItem`과 GSI `Query`의 read path 차이
 - GSI eventual consistency
 - GSI projection과 write cost
-- Spring API 응답에서 consistency 차이를 설명하는 방법
+- test 결과에서 consistency 차이를 관찰하는 방법
 
 ## 이번 주제에서 아직 다루지 않는 것
 

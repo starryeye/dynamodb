@@ -35,7 +35,7 @@ LastEvaluatedKey = {...}
 Query(ownerId = owner-1, limit = 10, ExclusiveStartKey = LastEvaluatedKey)
 ```
 
-## Spring API
+## Spring 실행 흐름
 
 이 주제에서는 학습을 위해 `LastEvaluatedKey` 구조를 응답에 드러낼 수 있다. 다음 주제에서 이 값을 API cursor로 감싼다.
 

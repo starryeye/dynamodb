@@ -26,7 +26,7 @@
 
 이론 프로젝트는 `theory/` 아래에 주제별 독립 프로젝트로 작성한다. `00-overview`는 오리엔테이션 문서와 학습 메모만 가진다. `01-table-item-key` 이후의 각 이론 프로젝트는 `docs/theory/*.md`와 1:1로 대응하며, 해당 개념을 확인하는 최소 Spring Boot 코드, 테스트, 스크립트, README를 가진다.
 
-코드가 있는 이론 프로젝트의 기본 web stack은 Spring MVC 기반 Servlet stack이다. DynamoDB는 먼저 blocking `DynamoDbClient`로 학습한다. reactive stack과 `DynamoDbAsyncClient`는 Stage 3에서 비교 학습한다.
+코드가 있는 이론 프로젝트의 기본 실행 모델은 non-web Spring Boot 애플리케이션이다. service, configuration, tests로 DynamoDB 연동을 확인한다. DynamoDB는 먼저 blocking `DynamoDbClient`로 학습한다. controller와 REST API는 theory에서 다루지 않고 practice Stage에서 본격적으로 다룬다.
 
 각 이론 프로젝트는 운영 환경에서 필요한 최소 관점도 함께 다룬다.
 
@@ -42,6 +42,13 @@
 - Spring 연동 포인트도 한 번에 하나만 강조한다.
 - 운영 포인트는 해당 주제와 직접 연결되는 한두 가지로 제한한다.
 - topic이 GSI, pagination, transaction처럼 무거워지면 basics와 failure/consistency/cursor 같은 별도 topic으로 나눈다.
+
+이론 예제 코드는 최대한 단순하게 유지한다.
+
+- 처음 읽는 사람이 `configuration -> service -> test` 흐름을 바로 따라갈 수 있어야 한다.
+- 예제 이해에 필요 없는 DTO, layer, helper, abstraction은 만들지 않는다.
+- 같은 주제 안에서 여러 item type, 여러 operation, 여러 실패 케이스를 한꺼번에 넣지 않는다.
+- 실무적으로 필요한 복잡한 구조는 practice Stage나 뒤쪽 theory topic에서 다룬다.
 
 코드 주석은 학습을 돕되 과하지 않게 작성한다.
 

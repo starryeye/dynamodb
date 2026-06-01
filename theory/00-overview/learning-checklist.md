@@ -5,14 +5,14 @@
 - [ ] `docs/theory/00-overview.md`를 읽었다.
 - [ ] 이론 트랙과 실습 트랙의 차이를 이해했다.
 - [ ] Stage 1, 2, 3의 역할을 설명할 수 있다.
-- [ ] Spring Boot MVC 실습은 `01-table-item-key`부터 시작된다는 점을 이해했다.
+- [ ] non-web Spring Boot 실습은 `01-table-item-key`부터 시작된다는 점을 이해했다.
 
 ## 이해
 
 - [ ] RDB의 일반적인 설계 흐름을 설명할 수 있다.
 - [ ] DynamoDB의 일반적인 설계 흐름을 설명할 수 있다.
 - [ ] DynamoDB에서 access pattern이 중요한 이유를 설명할 수 있다.
-- [ ] 입문 구간에서 Spring MVC와 blocking `DynamoDbClient`를 먼저 배우는 이유를 설명할 수 있다.
+- [ ] 입문 구간에서 non-web Spring Boot와 blocking `DynamoDbClient`를 먼저 배우는 이유를 설명할 수 있다.
 - [ ] `Query`, `GSI`, `condition`, `transaction`이 앞으로 어떤 주제로 등장하는지 감을 잡았다.
 
 ## 산출물

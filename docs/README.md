@@ -35,7 +35,7 @@
 
 이론 트랙은 `00-overview`에서 학습 방향을 잡고, `01-table-item-key`부터 각 주제를 독립적인 최소 Spring Boot 프로젝트로 학습한다.
 
-기본 스택은 Spring MVC 기반 Servlet stack을 사용한다. Spring 공식 문서에서도 Spring MVC는 Servlet API 기반의 original web framework이고, WebFlux는 이후 추가된 reactive stack이므로 입문 단계에서는 Spring MVC와 blocking `DynamoDbClient`를 먼저 배운다. WebFlux와 async client는 Stage 3에서 비교한다.
+기본 실행 모델은 non-web Spring Boot 애플리케이션이다. service, configuration, tests로 DynamoDB 연동을 확인하고, blocking `DynamoDbClient`를 먼저 배운다. Controller와 REST API는 theory에서 다루지 않고 practice Stage에서 본격적으로 다룬다.
 
 | 문서 | 학습 주제 |
 | --- | --- |
@@ -43,7 +43,7 @@
 | [01-table-item-key](./theory/01-table-item-key.md) | table, item, full primary key, `GetItem` |
 | [02-item-collection-query](./theory/02-item-collection-query.md) | partition key 기반 item collection `Query` |
 | [03-access-patterns](./theory/03-access-patterns.md) | API/use case와 DynamoDB operation 매핑 |
-| [04-query-vs-scan](./theory/04-query-vs-scan.md) | request path에서 `Query`와 교육용 `Scan` 비교 |
+| [04-query-vs-scan](./theory/04-query-vs-scan.md) | Spring test에서 `Query`와 교육용 `Scan` 비교 |
 | [05-sort-key-prefixes](./theory/05-sort-key-prefixes.md) | `TASK#...`, `STATS` 같은 sort key prefix |
 | [06-single-table-key-design](./theory/06-single-table-key-design.md) | single-table item shape와 hot partition 감각 |
 | [07-gsi-basics](./theory/07-gsi-basics.md) | GSI를 별도 read path로 추가하는 법 |
@@ -81,7 +81,7 @@ docs/practice/stage2-dynamodb-mvc.md  <-> practice/stage2-dynamodb-mvc/
 
 이론 트랙의 각 주제도 서로 독립된 프로젝트로 둔다. 각 프로젝트는 해당 개념을 실험하는 가장 작은 Spring Boot 애플리케이션, 테스트, Docker Compose, README를 가진다.
 
-`00-overview`는 오리엔테이션 문서다. `01-table-item-key` 이후의 모든 theory 프로젝트는 Spring Boot MVC 기반으로 작성한다. 같은 실행 모델을 반복해서 사용해 controller, service, configuration, profile, local/prod 차이를 익힌다.
+`00-overview`는 오리엔테이션 문서다. `01-table-item-key` 이후의 모든 theory 프로젝트는 non-web Spring Boot 기반으로 작성한다. 같은 test 실행 모델을 반복해서 사용해 service, configuration, profile, local/prod 차이를 익힌다.
 
 ```text
 theory/

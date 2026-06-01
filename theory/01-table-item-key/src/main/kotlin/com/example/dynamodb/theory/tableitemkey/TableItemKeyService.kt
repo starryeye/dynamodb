@@ -11,7 +11,6 @@ import software.amazon.awssdk.services.dynamodb.model.KeySchemaElement
 import software.amazon.awssdk.services.dynamodb.model.KeyType
 import software.amazon.awssdk.services.dynamodb.model.PutItemRequest
 import software.amazon.awssdk.services.dynamodb.model.ResourceInUseException
-import software.amazon.awssdk.services.dynamodb.model.ResourceNotFoundException
 import software.amazon.awssdk.services.dynamodb.model.ScalarAttributeType
 
 @Service
@@ -19,27 +18,18 @@ class TableItemKeyService(
     private val client: DynamoDbClient,
     private val properties: DynamoDbProperties,
 ) {
-    fun setup(): SetupResponse {
-        ensureTable()
-        val items = demoItems()
-
-        items.forEach { item ->
-            client.putItem(
-                PutItemRequest.builder()
-                    .tableName(properties.tableName)
-                    .item(item)
-                    .build(),
-            )
-        }
-
-        return SetupResponse(
-            tableName = properties.tableName,
-            itemCount = items.size,
+    fun saveDemoTask() {
+        createTableIfMissing()
+        client.putItem(
+            PutItemRequest.builder()
+                .tableName(properties.tableName)
+                .item(demoTaskItem())
+                .build(),
         )
     }
 
-    fun getItem(ownerId: String, itemKey: String): Map<String, Any> {
-        // GetItem needs the full primary key: partition key + sort key.
+    fun getItem(ownerId: String, itemKey: String): Map<String, String> {
+        // GetItem은 partition key와 sort key가 모두 필요하다.
         val item = client.getItem(
             GetItemRequest.builder()
                 .tableName(properties.tableName)
@@ -52,16 +42,12 @@ class TableItemKeyService(
                 .build(),
         ).item()
 
-        return DynamoDbAttributeMapper.toScalarMap(item)
+        return DynamoDbAttributeMapper.toStringMap(item)
     }
 
-    private fun ensureTable() {
-        if (tableExists()) {
-            return
-        }
-
+    private fun createTableIfMissing() {
         try {
-            // This topic uses a composite primary key: ownerId + itemKey.
+            // 이번 주제는 ownerId + itemKey composite primary key를 사용한다.
             client.createTable(
                 CreateTableRequest.builder()
                     .tableName(properties.tableName)
@@ -90,36 +76,17 @@ class TableItemKeyService(
             )
             client.waiter().waitUntilTableExists { it.tableName(properties.tableName) }
         } catch (_: ResourceInUseException) {
-            // Another local request may have created the demo table first.
+            // 로컬 테스트가 이미 데모 table을 만든 경우는 넘어간다.
         }
     }
 
-    private fun tableExists(): Boolean =
-        try {
-            client.describeTable { it.tableName(properties.tableName) }
-            true
-        } catch (_: ResourceNotFoundException) {
-            false
-        }
-
-    private fun demoItems(): List<Map<String, AttributeValue>> =
-        listOf(
-            taskItem("owner-1", "task-1", "DynamoDB table 이해하기", "TODO"),
-        )
-
-    private fun taskItem(
-        ownerId: String,
-        taskId: String,
-        title: String,
-        status: String,
-    ): Map<String, AttributeValue> =
+    private fun demoTaskItem(): Map<String, AttributeValue> =
         mapOf(
-            "ownerId" to DynamoDbAttributeMapper.s(ownerId),
-            "itemKey" to DynamoDbAttributeMapper.s(ItemKeys.task(taskId)),
+            "ownerId" to DynamoDbAttributeMapper.s("owner-1"),
+            "itemKey" to DynamoDbAttributeMapper.s(ItemKeys.task("task-1")),
             "entityType" to DynamoDbAttributeMapper.s("TASK"),
-            "taskId" to DynamoDbAttributeMapper.s(taskId),
-            "title" to DynamoDbAttributeMapper.s(title),
-            "status" to DynamoDbAttributeMapper.s(status),
+            "taskId" to DynamoDbAttributeMapper.s("task-1"),
+            "title" to DynamoDbAttributeMapper.s("DynamoDB table 이해하기"),
+            "status" to DynamoDbAttributeMapper.s("TODO"),
         )
-
 }

@@ -53,13 +53,13 @@ sort key      = itemKey
 
 ## 실습에서 확인할 것
 
-`theory/01-table-item-key` 프로젝트는 Spring Boot MVC 애플리케이션으로 다음을 직접 실행해본다.
+`theory/01-table-item-key` 프로젝트는 non-web Spring Boot 애플리케이션을 테스트로 로딩해 다음을 확인한다.
 
 - DynamoDB Local에 `ownerId` + `itemKey` composite primary key를 가진 table을 만든다.
 - `DynamoDbClient`를 Spring bean으로 등록한다.
 - local profile에서 endpoint override와 dummy credential을 사용한다.
 - `TASK#task-1` item을 저장한다.
-- HTTP API를 통해 `GetItem`으로 full primary key 조회를 한다.
+- 테스트에서 `GetItem`으로 full primary key 조회를 한다.
 
 `Query`와 item collection은 다음 주제인 [Item Collection Query](./02-item-collection-query.md)에서 다룬다.
 

@@ -13,7 +13,7 @@ theory/07-gsi-basics/
 - GSI의 역할
 - GSI partition key와 sort key
 - `OwnerCreatedAtIndex` 생성
-- Spring API에서 table 조회와 index 조회를 분리하기
+- Spring service에서 table 조회와 index 조회를 분리하기
 
 ## 이번 주제에서 아직 다루지 않는 것
 

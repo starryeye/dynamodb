@@ -37,4 +37,4 @@ prefix 규칙은 한 번 production 데이터에 들어가면 바꾸기 어렵�
 
 - `TASK#` prefix가 없으면 task item만 골라내기 어려운 이유는 무엇인가?
 - sort key prefix는 schema인가, application convention인가?
-- key 생성 로직을 controller에 두지 않는 이유는 무엇인가?
+- key 생성 로직을 여러 service/test 흐름에 흩뿌리지 않는 이유는 무엇인가?

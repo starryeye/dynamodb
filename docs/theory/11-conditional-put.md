@@ -14,7 +14,7 @@ theory/11-conditional-put/
 - `conditionExpression`
 - `attribute_not_exists`
 - `ConditionalCheckFailedException`
-- Spring API에서 duplicate 응답 반환하기
+- Spring service/test에서 duplicate conflict 확인하기
 
 ## 이번 주제에서 아직 다루지 않는 것
 

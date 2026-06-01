@@ -2,12 +2,6 @@ spring:
   application:
     name: theory-01-table-item-key
 
-management:
-  endpoints:
-    web:
-      exposure:
-        include: health,info
-
 app:
   dynamodb:
     region: ${AWS_REGION:ap-northeast-2}

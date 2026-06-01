@@ -4,16 +4,16 @@
 
 이 프로젝트는 DynamoDB 학습 흐름과 RDB와의 사고방식 차이를 정리하는 독립 프로젝트다.
 
-이 주제는 코드 실습 전 오리엔테이션이다. DynamoDB를 SQL의 다른 문법으로 보지 않고, access pattern 중심의 데이터베이스로 바라보는 준비를 한다. Spring Boot MVC 실습은 `01-table-item-key`부터 시작한다.
+이 주제는 코드 실습 전 오리엔테이션이다. DynamoDB를 SQL의 다른 문법으로 보지 않고, access pattern 중심의 데이터베이스로 바라보는 준비를 한다. non-web Spring Boot 실습은 `01-table-item-key`부터 시작한다.
 
 ## 학습 목표
 
 - RDB와 DynamoDB의 설계 출발점 차이를 설명한다.
 - 이론 트랙과 실습 트랙의 관계를 이해한다.
-- theory 프로젝트의 기본 스택이 Spring MVC 기반 Servlet stack인 이유를 이해한다.
+- theory 프로젝트의 기본 실행 모델이 non-web Spring Boot인 이유를 이해한다.
 - Stage 1, 2, 3이 각각 무엇을 비교하기 위한 단계인지 말할 수 있다.
 - 앞으로 각 주제에서 어떤 질문을 던져야 하는지 정리한다.
-- Spring Boot MVC 실습이 `01-table-item-key`부터 시작된다는 점을 이해한다.
+- non-web Spring Boot 실습이 `01-table-item-key`부터 시작된다는 점을 이해한다.
 
 ## 파일
 

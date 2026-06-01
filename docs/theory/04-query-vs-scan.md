@@ -16,7 +16,7 @@ SK: createdAtTaskId 기준 정렬
 
 ## Scan
 
-`Scan`은 table 또는 index의 item을 훑는다. 작은 실험이나 admin tool에서는 사용할 수 있지만, 일반 request path에서는 피해야 한다.
+`Scan`은 table 또는 index의 item을 훑는다. 작은 실험이나 admin tool에서는 사용할 수 있지만, 일반 application path에서는 피해야 한다.
 
 `FilterExpression`을 붙여도 먼저 읽고 나중에 거르는 방식이기 때문에, 비용과 지연 시간 문제가 해결되지 않는다.
 
@@ -42,4 +42,3 @@ DynamoDB Local에서 작은 데이터를 넣고 다음을 비교한다.
 - `FilterExpression`은 read capacity 사용량을 줄여주는가?
 - `Query`에는 왜 partition key 조건이 필요한가?
 - 이 프로젝트의 REST API 중 `Scan`이 필요한 API가 있는가?
-

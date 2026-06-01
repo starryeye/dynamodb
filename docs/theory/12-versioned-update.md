@@ -13,7 +13,7 @@ theory/12-versioned-update/
 - item에 `version` attribute 두기
 - `version = :expectedVersion` condition
 - update 성공 시 version 증가
-- Spring API에서 conflict 응답 반환하기
+- Spring service/test에서 conflict 확인하기
 
 ## 이번 주제에서 아직 다루지 않는 것
 

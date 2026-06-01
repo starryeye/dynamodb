@@ -24,7 +24,7 @@ theory/17-backup-monitoring/
 
 ## Spring Boot 관점
 
-애플리케이션은 actuator health와 metrics를 제공한다. DynamoDB 자체의 운영 지표는 CloudWatch에서 확인한다.
+practice 애플리케이션은 actuator health와 metrics를 제공할 수 있다. DynamoDB 자체의 운영 지표는 CloudWatch에서 확인한다.
 
 ## 운영 포인트
 
