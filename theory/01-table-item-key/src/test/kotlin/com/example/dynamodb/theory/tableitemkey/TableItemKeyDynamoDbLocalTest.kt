@@ -22,16 +22,16 @@ import java.net.Socket
     ],
 )
 class TableItemKeyDynamoDbLocalTest {
-    @Autowired // Spring context에서 TableItemKeyService bean을 주입받는다.
+    @Autowired
     private lateinit var service: TableItemKeyService
 
-    @BeforeEach // 각 테스트 전에 DynamoDB Local 실행 여부를 확인한다.
+    @BeforeEach
     fun requireDynamoDbLocal() {
         // DynamoDB Local이 떠 있을 때만 실제 연동 흐름을 실행한다.
         assumeTrue(canConnectToDynamoDbLocal())
     }
 
-    @Test // 이 함수가 하나의 테스트 케이스다.
+    @Test
     fun `full primary key로 저장한 item을 다시 조회한다`() {
         // table을 만들고 demo task item 한 건을 저장한다.
         service.saveDemoTask()
@@ -48,10 +48,8 @@ class TableItemKeyDynamoDbLocalTest {
     }
 
     private fun canConnectToDynamoDbLocal(): Boolean =
-        // localhost:8000에 TCP 연결이 되면 DynamoDB Local이 떠 있다고 본다.
         runCatching {
             Socket().use { socket ->
-                // 연결 대기 시간을 짧게 두어 Docker가 꺼져 있을 때 테스트가 오래 멈추지 않게 한다.
                 socket.connect(InetSocketAddress("localhost", 8000), 200)
             }
         }.isSuccess

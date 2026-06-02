@@ -12,7 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest
     ],
 )
 class TableItemKeyApplicationTest {
-    @Test // Spring 설정과 bean 생성이 깨지지 않았는지 확인한다.
+    @Test
     fun `Spring context가 DynamoDbClient 설정을 포함해 로딩된다`() {
     }
 }

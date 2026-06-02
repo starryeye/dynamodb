@@ -2,7 +2,7 @@
 
 ## 읽기
 
-- [ ] `docs/theory/00-overview.md`를 읽었다.
+- [ ] `theory/00-overview/README.md`를 읽었다.
 - [ ] 이론 트랙과 실습 트랙의 차이를 이해했다.
 - [ ] Stage 1, 2, 3의 역할을 설명할 수 있다.
 - [ ] non-web Spring Boot 실습은 `01-table-item-key`부터 시작된다는 점을 이해했다.

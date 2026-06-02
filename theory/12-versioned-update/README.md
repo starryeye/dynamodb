@@ -1,7 +1,41 @@
-# 12 Versioned Update
+# Versioned Update
 
-문서: [Versioned Update](../../docs/theory/12-versioned-update.md)
+이 주제는 `expectedVersion` 기반 update conflict를 배우는 단계다.
 
-이 프로젝트는 Spring Boot MVC update API에서 `expectedVersion` 기반 conflict를 학습하는 독립 프로젝트다.
+프로젝트 위치:
 
-목표는 `version = :expectedVersion` condition과 conflict 응답을 구현하는 것이다.
+```text
+theory/12-versioned-update/
+```
+
+## 이번 주제에서 배우는 것
+
+- item에 `version` attribute 두기
+- `version = :expectedVersion` condition
+- update 성공 시 version 증가
+- Spring service/test에서 conflict 확인하기
+
+## 이번 주제에서 아직 다루지 않는 것
+
+- state transition condition
+- transaction
+- cancellation reason
+
+## 예시 요청
+
+```json
+{
+  "title": "새 제목",
+  "expectedVersion": 1
+}
+```
+
+## 운영 포인트
+
+동시 수정이 가능한 write API는 conflict를 정상적인 business response로 다뤄야 한다. 로그를 error로만 쌓기보다 conflict rate를 관찰할 수 있게 분리한다.
+
+## 확인 질문
+
+- `expectedVersion`을 request에 받는 이유는 무엇인가?
+- update 후 version을 증가시키지 않으면 어떤 문제가 생기는가?
+- conflict를 500으로 처리하면 왜 잘못인가?

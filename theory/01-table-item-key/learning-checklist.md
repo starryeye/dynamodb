@@ -2,7 +2,7 @@
 
 ## 읽기
 
-- [ ] `docs/theory/01-table-item-key.md`를 읽었다.
+- [ ] `theory/01-table-item-key/README.md`를 읽었다.
 - [ ] table, item, attribute를 구분할 수 있다.
 - [ ] partition key와 sort key의 역할을 설명할 수 있다.
 - [ ] Spring Boot에서 DynamoDB client를 bean으로 등록하는 흐름을 읽었다.

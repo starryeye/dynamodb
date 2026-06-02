@@ -17,13 +17,16 @@ import software.amazon.awssdk.services.dynamodb.model.ScalarAttributeType
  * 이번 주제는 DynamoDB의 가장 기본 단위인 table, item, key를 확인한다.
  *
  * table은 item을 담는 공간이고, item은 DynamoDB에 저장되는 데이터 한 건이다.
- * key는 item을 찾기 위한 값이다. 이 예제는 ownerId와 itemKey를 함께 써서
+ * attribute는 item 안에 들어 있는 이름-값 한 쌍이다. RDB row의 column 값처럼
+ * title, status 같은 필드를 떠올리면 된다.
+ *
+ * key는 item을 찾기 위한 attribute다. 이 예제는 ownerId와 itemKey를 함께 써서
  * "할 일 item 한 건을 저장하고 다시 정확히 조회하는 흐름"만 다룬다.
  */
-@Service // Spring이 이 클래스를 service bean으로 등록한다.
+@Service
 class TableItemKeyService(
-    private val client: DynamoDbClient, // DynamoDB에 요청을 보내는 AWS SDK client다.
-    private val properties: DynamoDbProperties, // table 이름, endpoint 같은 설정값을 담는다.
+    private val client: DynamoDbClient,
+    private val properties: DynamoDbProperties,
 ) {
     /**
      * 학습용 table을 준비하고 demo task item 한 건을 저장한다.
@@ -35,11 +38,10 @@ class TableItemKeyService(
         // PutItem은 DynamoDB table에 item 한 건을 저장하는 operation이다.
         client.putItem(
             PutItemRequest.builder()
-                // 어떤 table에 저장할지 지정한다.
+                // 어떤 DynamoDB table에 저장할지 지정한다.
                 .tableName(properties.tableName)
-                // 저장할 item의 attribute들을 지정한다.
+                // item은 attribute 이름과 값의 묶음이다.
                 .item(demoTaskItem())
-                // builder에 넣은 값을 실제 요청 객체로 만든다.
                 .build(),
         )
     }
@@ -51,7 +53,7 @@ class TableItemKeyService(
         // GetItem은 partition key와 sort key가 모두 필요하다.
         val item = client.getItem(
             GetItemRequest.builder()
-                // 어느 table에서 읽을지 지정한다.
+                // 어느 DynamoDB table에서 읽을지 지정한다.
                 .tableName(properties.tableName)
                 // 조회할 item의 full primary key를 지정한다.
                 .key(
@@ -62,9 +64,8 @@ class TableItemKeyService(
                         "itemKey" to DynamoDbAttributeMapper.s(itemKey),
                     ),
                 )
-                // builder에 넣은 값을 실제 요청 객체로 만든다.
                 .build(),
-        ).item() // DynamoDB 응답에서 item map만 꺼낸다.
+        ).item()
 
         // AWS SDK의 AttributeValue map을 테스트에서 읽기 쉬운 문자열 map으로 바꾼다.
         return DynamoDbAttributeMapper.toStringMap(item)
@@ -75,11 +76,11 @@ class TableItemKeyService(
             // CreateTable은 DynamoDB table을 새로 만드는 operation이다.
             client.createTable(
                 CreateTableRequest.builder()
-                    // 생성할 table 이름이다.
+                    // 생성할 DynamoDB table 이름이다.
                     .tableName(properties.tableName)
                     // 입문 예제에서는 capacity 계산 없이 쓰기 위해 on-demand 방식을 사용한다.
                     .billingMode(BillingMode.PAY_PER_REQUEST)
-                    // key로 사용할 attribute 이름과 타입을 선언한다.
+                    // key로 사용할 attribute 이름과 타입만 table 생성 시 선언한다.
                     .attributeDefinitions(
                         AttributeDefinition.builder()
                             // ownerId attribute를 key에 사용할 수 있게 선언한다.
@@ -109,7 +110,6 @@ class TableItemKeyService(
                             .keyType(KeyType.RANGE)
                             .build(),
                     )
-                    // builder에 넣은 값을 실제 요청 객체로 만든다.
                     .build(),
             )
 
@@ -122,6 +122,7 @@ class TableItemKeyService(
 
     /**
      * DynamoDB item은 attribute 이름과 값으로 이루어진 map이다.
+     * attribute는 item의 필드 하나이며, DynamoDB에서는 값 타입도 함께 표현한다.
      * 여기서는 "할 일 하나"를 item 한 건으로 저장한다.
      */
     private fun demoTaskItem(): Map<String, AttributeValue> =

@@ -2,14 +2,32 @@
 
 이 디렉터리는 DynamoDB 이론 주제별 독립 학습 프로젝트를 담는다.
 
-각 프로젝트는 `docs/theory/*.md` 문서와 1:1로 대응한다.
+각 프로젝트의 `README.md`가 해당 주제의 학습 본문이다.
 
-```text
-docs/theory/01-table-item-key.md <-> theory/01-table-item-key/
-docs/theory/10-api-cursor.md     <-> theory/10-api-cursor/
-```
+## 학습 순서
 
-각 프로젝트는 형제 프로젝트에 의존하지 않는다. `00-overview`는 오리엔테이션 문서이고, `01-table-item-key` 이후의 기본 실행 모델은 non-web Spring Boot와 blocking `DynamoDbClient`다.
+1. [00 Overview](./00-overview/)
+2. [01 Table, Item, Key](./01-table-item-key/)
+3. [02 Item Collection Query](./02-item-collection-query/)
+4. [03 Access Patterns](./03-access-patterns/)
+5. [04 Query vs Scan](./04-query-vs-scan/)
+6. [05 Sort Key Prefixes](./05-sort-key-prefixes/)
+7. [06 Single-table Key Design](./06-single-table-key-design/)
+8. [07 GSI Basics](./07-gsi-basics/)
+9. [08 GSI Consistency](./08-gsi-consistency/)
+10. [09 LastEvaluatedKey](./09-last-evaluated-key/)
+11. [10 API Cursor](./10-api-cursor/)
+12. [11 Conditional Put](./11-conditional-put/)
+13. [12 Versioned Update](./12-versioned-update/)
+14. [13 Transaction Basics](./13-transaction-basics/)
+15. [14 Transaction Failures](./14-transaction-failures/)
+16. [15 Capacity and Cost](./15-capacity-and-cost/)
+17. [16 Credentials and IAM](./16-credentials-and-iam/)
+18. [17 Backup and Monitoring](./17-backup-monitoring/)
+
+## 실행 모델
+
+`00-overview`는 오리엔테이션 문서이고, `01-table-item-key` 이후의 기본 실행 모델은 non-web Spring Boot와 blocking `DynamoDbClient`다.
 
 각 주제는 다음을 함께 배운다.
 
@@ -20,35 +38,4 @@ docs/theory/10-api-cursor.md     <-> theory/10-api-cursor/
 - prod profile에서 endpoint override와 dummy credential을 제거하는 이유
 - 해당 주제와 연결되는 운영 포인트
 
-`01-table-item-key` 이후의 모든 theory 프로젝트는 non-web Spring Boot 기반으로 작성한다. topic마다 다루는 DynamoDB 기능은 다르지만, 애플리케이션 골격은 일관되게 유지한다.
-
-## Topic Size Rule
-
-한 topic은 다음 범위를 넘지 않는다.
-
-- DynamoDB 핵심 개념 1개
-- Spring 연동 포인트 1개
-- 운영 주의점 1개
-
-주제가 무거워지면 새 topic으로 분리한다. 예를 들어 GSI는 `07-gsi-basics`와 `08-gsi-consistency`로 나누고, pagination은 `09-last-evaluated-key`와 `10-api-cursor`로 나눈다.
-
-## Example Code Rule
-
-theory 예제 코드는 최대한 단순하게 유지한다.
-
-- 처음 읽는 사람이 `configuration -> service -> test` 흐름을 바로 따라갈 수 있어야 한다.
-- 예제 이해에 필요 없는 DTO, layer, helper, abstraction은 만들지 않는다.
-- 실무적으로 필요한 복잡한 구조는 practice Stage나 뒤쪽 theory topic에서 다룬다.
-
-## Comment Rule
-
-코드 주석은 친절하지만 짧게 쓴다.
-
-- 주요 service/test에는 이번 주제의 목표, 핵심 용어 정의, 확인 흐름을 먼저 적는다.
-- table, item, key, condition처럼 처음 나오는 개념은 코드 주석 안에서 짧게 정의한다.
-- 코드 주석만 읽어도 학습자가 "이 예제가 무엇을 확인하는지" 알 수 있어야 한다.
-- 초반 theory 예제는 주요 코드 라인마다 무엇을 하는지 한국어 주석으로 설명한다.
-- annotation, builder call, test assertion처럼 입문자가 낯설 수 있는 줄은 생략하지 않는다.
-- DynamoDB key, condition, transaction, profile처럼 처음 보면 헷갈리는 지점에만 주석을 둔다.
-- 코드를 그대로 한글로 옮기는 데서 끝내지 않고, 그 줄이 학습에서 왜 필요한지도 함께 적는다.
-- 자세한 설명은 해당 `docs/theory/*.md` 문서로 안내하되, 코드만 열어도 최소 맥락은 잡히게 한다.
+각 주제의 자세한 설명과 실행 방법은 각 프로젝트의 `README.md`에서 확인한다.
