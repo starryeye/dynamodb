@@ -29,7 +29,9 @@ class AccessPatternService(
         // task 저장 요구사항은 primary key를 포함한 item 한 건을 PutItem으로 기록한다.
         client.putItem(
             PutItemRequest.builder()
+                // 어느 table에 task item을 저장할지 지정한다.
                 .tableName(properties.tableName)
+                // item에는 primary key와 task의 attribute가 함께 들어간다.
                 .item(taskItem(ownerId, taskId, title))
                 .build(),
         )
@@ -40,6 +42,7 @@ class AccessPatternService(
         val response = client.getItem(
             GetItemRequest.builder()
                 .tableName(properties.tableName)
+                // GetItem은 partition key와 sort key가 모두 들어간 완전한 primary key가 필요하다.
                 .key(primaryKey(ownerId, taskId))
                 .build(),
         )
@@ -56,7 +59,9 @@ class AccessPatternService(
         val response = client.query(
             QueryRequest.builder()
                 .tableName(properties.tableName)
+                // Query는 partition key가 ownerId와 같은 item collection을 읽는다.
                 .keyConditionExpression("ownerId = :ownerId")
+                // :ownerId 자리에 실제 조회할 ownerId 문자열 attribute를 넣는다.
                 .expressionAttributeValues(
                     mapOf(":ownerId" to DynamoDbAttributeMapper.s(ownerId)),
                 )
@@ -76,6 +81,7 @@ class AccessPatternService(
 
     private fun taskItem(ownerId: String, taskId: String, title: String): Map<String, AttributeValue> =
         primaryKey(ownerId, taskId) + mapOf(
+            // application이 사용하는 id와 제목도 item의 일반 attribute로 저장한다.
             "taskId" to DynamoDbAttributeMapper.s(taskId),
             "title" to DynamoDbAttributeMapper.s(title),
         )
@@ -87,6 +93,7 @@ class AccessPatternService(
                     .tableName(properties.tableName)
                     // 입문 예제에서는 capacity 수치를 직접 정하지 않는 on-demand mode를 사용한다.
                     .billingMode(BillingMode.PAY_PER_REQUEST)
+                    // primary key에 참여하는 attribute의 이름과 DynamoDB 타입을 선언한다.
                     .attributeDefinitions(
                         AttributeDefinition.builder()
                             .attributeName("ownerId")
@@ -97,6 +104,7 @@ class AccessPatternService(
                             .attributeType(ScalarAttributeType.S)
                             .build(),
                     )
+                    // ownerId + itemKey가 이 table의 primary key라는 구조를 선언한다.
                     .keySchema(
                         KeySchemaElement.builder()
                             // HASH는 AWS SDK에서 partition key를 뜻한다.
@@ -112,6 +120,7 @@ class AccessPatternService(
                     .build(),
             )
 
+            // table 생성 직후 PutItem을 안전하게 실행할 수 있도록 ACTIVE 상태까지 기다린다.
             client.waiter().waitUntilTableExists { it.tableName(properties.tableName) }
         } catch (_: ResourceInUseException) {
             // 같은 학습 테스트를 반복 실행할 때 기존 table을 그대로 사용한다.
