@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: theory-03-access-patterns
+
+app:
+  dynamodb:
+    region: ${AWS_REGION:ap-northeast-2}
+    table-name: ${DYNAMODB_TABLE_NAME:theory_03_access_patterns}
+    endpoint: ${DYNAMODB_ENDPOINT:}
+    use-dummy-credentials: ${DYNAMODB_USE_DUMMY_CREDENTIALS:false}
