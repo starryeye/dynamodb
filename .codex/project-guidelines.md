@@ -122,4 +122,6 @@ Stage 3:
 
 - 기존 사용자의 변경을 되돌리지 않는다.
 - 커밋 메시지는 기존 스타일인 `[starryeye, YYYY.MM.DD] - docs` 형식을 따른다.
-- 이전부터 untracked로 남아 있는 Gradle wrapper 파일은 사용자가 요청하기 전까지 커밋하지 않는다.
+- 사용자가 별도 branch, worktree, PR을 명시적으로 요청하지 않으면 `main`에서 직접 작업한다.
+- 구현과 검증이 끝나면 별도 요청을 기다리지 않고 관련 변경을 즉시 커밋하고 `main`에 push한다.
+- 각 독립 Gradle 프로젝트의 wrapper 파일은 해당 프로젝트 코드와 함께 커밋하고 push한다.
