@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: theory-04-query-vs-scan
+
+app:
+  dynamodb:
+    region: ${AWS_REGION:ap-northeast-2}
+    table-name: ${DYNAMODB_TABLE_NAME:theory_04_query_vs_scan}
+    endpoint: ${DYNAMODB_ENDPOINT:}
+    use-dummy-credentials: ${DYNAMODB_USE_DUMMY_CREDENTIALS:false}

@@ -1,0 +1,8 @@
+package com.example.dynamodb.theory.queryvsscan
+
+import org.springframework.boot.autoconfigure.SpringBootApplication
+import org.springframework.boot.context.properties.ConfigurationPropertiesScan
+
+@SpringBootApplication
+@ConfigurationPropertiesScan
+class QueryVsScanApplication
