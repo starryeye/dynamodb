@@ -1,0 +1,8 @@
+package com.example.dynamodb.theory.sortkeyprefixes
+
+import org.springframework.boot.autoconfigure.SpringBootApplication
+import org.springframework.boot.context.properties.ConfigurationPropertiesScan
+
+@SpringBootApplication
+@ConfigurationPropertiesScan
+class SortKeyPrefixesApplication
